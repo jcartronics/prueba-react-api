@@ -8,6 +8,7 @@ const MIApi = () => {
 // Estados
 const [indicadores, setIndicadores] = useState([])
 const [periodo, setPeriodo] = useState('2023')
+const [filtro, setFiltro] = useState([])
 
 // Hook de efecto
 useEffect(() => {
@@ -25,13 +26,26 @@ const getIndicadores = async () => {
         setIndicadores(data)
     } catch (error) {
         console.log(error)
+        setIndicadores([])
     }
 }
+
+const indicadoresFiltrados = indicadores.serie ? indicadores.serie.filter((indicador) => {
+    const fecha = new Date(indicador.fecha)
+    const fechaFormateada = fecha.toLocaleDateString()
+    return fechaFormateada.includes(filtro)
+}) : []
+
 
 // Maneja el formulario
 const handleForm = (e) => {
     e.preventDefault()
     setPeriodo(e.target.periodo.value)
+}
+
+const handleFiltro = (e) => {
+    e.preventDefault()
+    setFiltro(e.target.value)
 }
 
   return (
@@ -56,6 +70,9 @@ const handleForm = (e) => {
             <Button variant="dark" as="input" type="submit" value="Enviar" />
         </Form>
 
+        {/* Filtro */}
+        <Form.Control type="text" placeholder="Filtrar por fecha" name="filtro" onChange={handleFiltro} />
+
         {/* Tabla */}
         <Table stripped bordered hover variant='dark'>
             <thead>
@@ -65,8 +82,7 @@ const handleForm = (e) => {
                 </tr>
             </thead>
             <tbody>
-                {indicadores.serie &&
-                        indicadores.serie.map((indicador, index) => {
+                {indicadoresFiltrados.map((indicador, index) => {
                             const fecha = new Date(indicador.fecha)
                             const fechaFormateada = fecha.toLocaleDateString()
 
