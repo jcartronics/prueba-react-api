@@ -8,7 +8,8 @@ const MIApi = () => {
 // Estados
 const [indicadores, setIndicadores] = useState([])
 const [periodo, setPeriodo] = useState('2023')
-const [filtro, setFiltro] = useState([])
+const [filtroFecha, setFiltroFecha] = useState([])
+const [filtroValor, setFiltroValor] = useState([])
 const [ordenColumna, setOrdenColumna] = useState(null)
 const [ordenAscendente, setOrdenAscendente] = useState(true)
 
@@ -35,7 +36,7 @@ const getIndicadores = async () => {
 const indicadoresFiltrados = indicadores.serie ? indicadores.serie.filter((indicador) => {
     const fecha = new Date(indicador.fecha)
     const fechaFormateada = fecha.toLocaleDateString()
-    return fechaFormateada.includes(filtro)
+    return fechaFormateada.includes(filtroFecha) && indicador.valor.toString().includes(filtroValor)
 }) : []
 
 
@@ -47,9 +48,14 @@ const handleForm = (e) => {
     setOrdenAscendente(true)
 }
 
-const handleFiltro = (e) => {
+const handleFiltroFecha = (e) => {
     e.preventDefault()
-    setFiltro(e.target.value)
+    setFiltroFecha(e.target.value)
+}
+
+const handleFiltroValor = (e) => {
+    e.preventDefault()
+    setFiltroValor(e.target.value)
 }
 
 const ordenarColumna = (columna) => {
@@ -85,8 +91,11 @@ const ordenarColumna = (columna) => {
             <Button variant="dark" as="input" type="submit" value="Enviar" />
         </Form>
 
-        {/* Filtro */}
-        <Form.Control type="text" placeholder="Filtrar por fecha" name="filtro" onChange={handleFiltro} />
+        {/* FiltroFecha */}
+        <Form.Control type="text" placeholder="Filtrar por fecha" name="filtroFecha" onChange={handleFiltroFecha} />
+
+        {/* FiltroValor */}
+        <Form.Control type="text" placeholder="Filtrar por valor" name="filtroValor" onChange={handleFiltroValor} />
 
         {/* Tabla */}
         <Table stripped bordered hover variant='dark'>
