@@ -13,3 +13,6 @@ Ademas se debe grabar un video con la explicación del codigo y la aplicación.
 - [✅] Crea un input llamado búsqueda que filtre por alguno de los resultados de la API. Por ejemplo nombre, precio o cualquier otro tipo de criterio coherente con el resultado de la API (2 Punto)
 - [✅] Ordena los resultados por algún criterio que estimes conveniente, puede ser alfabéticamente, de menor a mayor, etc. Investiga el método sort y reverse de los arrays (1 Punto)
 - [✅] Agrega un diseño coherente a tu aplicación (1 Punto)
+- [✅] Grabar video con la explicación.
+
+Link del video: https://youtu.be/Ya426igFo80
