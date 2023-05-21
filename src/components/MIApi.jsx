@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import { Table } from 'react-bootstrap'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const MIApi = () => {
 const [indicadores, setIndicadores] = useState([])
@@ -29,17 +32,17 @@ const handleForm = (e) => {
 
   return (
     <div>
-        <form onSubmit={handleForm}>
-            <select name="periodo">
+        <Form onSubmit={handleForm}>
+            <Form.Select name="periodo">
                 <option value="2023">2023</option>
                 <option value="2022">2022</option>
                 <option value="2021">2021</option>
                 <option value="2020">2020</option>
-            </select>
-            <input type="submit" value="Enviar" />
-        </form>
+            </Form.Select>
+            <Button variant="dark" as="input" type="submit" value="Enviar" />
+        </Form>
 
-        <table>
+        <Table stripped bordered hover variant='dark'>
             <thead>
                 <tr>
                     <th>Fecha</th>
@@ -59,7 +62,7 @@ const handleForm = (e) => {
                     </tr>
                 )})}
             </tbody>
-        </table>
+        </Table>
     </div>
   )
 }
