@@ -5,7 +5,7 @@ function App() {
   return (
     <div>
       <MiNav />
-      <h1 className='titulo'>Desafio - React Api!</h1>
+      <h1 className='titulo'>Prueba - React I - Dolar Anual</h1>
       <MIApi />
     </div>
   );

@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: gray;
 }
 
 code {
@@ -17,4 +18,41 @@ code {
   font-size: 2rem;
   background-color: grey;
   color: white;
+  margin: 0;
+}
+
+.filtros {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-inline: 0.5rem;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.filtros > input {
+  width: 100%;
+}
+
+.inputs-form { 
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 0.5rem;
+}
+
+.select-periodo {
+  width : 50%;
+}
+
+.contenedor {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background-color: gray;
+  text-align: center;
+}
+
+::placeholder {
+  text-align: center;
 }

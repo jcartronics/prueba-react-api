@@ -69,36 +69,41 @@ const ordenarColumna = (columna) => {
     }
 }
 
-  return (
-    <div>
+    return (
+    <div className='contenedor'>
         {/* Formulario */}
         <Form onSubmit={handleForm}>
 
             {/* Renderiza periodos */}
-            <Form.Select name="periodo">
-                {(() => {
-                    const options = [];
-                    const currentYear = new Date().getFullYear();
-
-                    for (let year = currentYear; year >= 1984; year--) {
-                    options.push(<option value={year}>{year}</option>);
-                    }
-
-                    return options;
-
+            <div className='inputs-form'>
+                <label>Selecciona Periodo a consultar:</label>
+                <Form.Select name="periodo" className='select-periodo'>
+                    {(() => {
+                        const options = [];
+                        const currentYear = new Date().getFullYear();
+                        
+                        for (let year = currentYear; year >= 1984; year--) {
+                            options.push(<option value={year}>{year}</option>);
+                        }
+                        
+                        return options;
+                        
                     })()}
-            </Form.Select>
-            <Button variant="dark" as="input" type="submit" value="Enviar" />
+                </Form.Select>
+                <Button variant="dark" as="input" type="submit" value="Enviar" />
+            </div>
         </Form>
 
-        {/* FiltroFecha */}
-        <Form.Control type="text" placeholder="Filtrar por fecha" name="filtroFecha" onChange={handleFiltroFecha} />
-
-        {/* FiltroValor */}
-        <Form.Control type="text" placeholder="Filtrar por valor" name="filtroValor" onChange={handleFiltroValor} />
+        {/* Filtros */}
+        <div className='filtros'>
+            {/* FiltroFecha */}
+            <Form.Control type="text" placeholder="Filtrar por fecha" name="filtroFecha" onChange={handleFiltroFecha} />
+            {/* FiltroValor */}
+            <Form.Control type="text" placeholder="Filtrar por valor" name="filtroValor" onChange={handleFiltroValor} />
+        </div>
 
         {/* Tabla */}
-        <Table stripped bordered hover variant='dark'>
+        <Table stripped bordered hover variant='dark' className='tabla'>
             <thead>
                 <tr>
                     <th><button
@@ -129,7 +134,7 @@ const ordenarColumna = (columna) => {
 
                             return (
                                 <tr key={index}>
-                        <td>{fechaFormateada}</td>
+                        <td className='center'>{fechaFormateada}</td>
                         <td>{indicador.valor}</td>
                     </tr>
                 )})}
