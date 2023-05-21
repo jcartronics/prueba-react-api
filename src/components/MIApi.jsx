@@ -9,6 +9,8 @@ const MIApi = () => {
 const [indicadores, setIndicadores] = useState([])
 const [periodo, setPeriodo] = useState('2023')
 const [filtro, setFiltro] = useState([])
+const [ordenColumna, setOrdenColumna] = useState(null)
+const [ordenAscendente, setOrdenAscendente] = useState(true)
 
 // Hook de efecto
 useEffect(() => {
@@ -41,11 +43,24 @@ const indicadoresFiltrados = indicadores.serie ? indicadores.serie.filter((indic
 const handleForm = (e) => {
     e.preventDefault()
     setPeriodo(e.target.periodo.value)
+    setOrdenColumna(null)
+    setOrdenAscendente(true)
 }
 
 const handleFiltro = (e) => {
     e.preventDefault()
     setFiltro(e.target.value)
+}
+
+const ordenarColumna = (columna) => {
+    if (columna === ordenColumna) {
+        // Si la columna ya está ordenada, cambia el estado de ordenAscendente
+        setOrdenAscendente(!ordenAscendente)
+    } else {
+        // Si se está ordenando por una columna distinta, se ordena de forma ascendente
+        setOrdenColumna(columna)
+        setOrdenAscendente(true)
+    }
 }
 
   return (
@@ -77,12 +92,29 @@ const handleFiltro = (e) => {
         <Table stripped bordered hover variant='dark'>
             <thead>
                 <tr>
-                    <th>Fecha</th>
-                    <th>Valor</th>
+                    <th><button
+                     className='btn btn-link'
+                     onClick={()=> ordenarColumna("fecha")}>Fecha</button></th>
+                    <th><button
+                     className='btn btn-link'
+                     onClick={()=> ordenarColumna("valor")}>Valor</button></th>
                 </tr>
             </thead>
             <tbody>
-                {indicadoresFiltrados.map((indicador, index) => {
+                {indicadoresFiltrados
+                .sort((a, b) => {
+                    if (ordenColumna === "fecha") {
+                        return ordenAscendente
+                        ? new Date(a.fecha) - new Date(b.fecha)
+                        : new Date(b.fecha) - new Date(a.fecha)
+                    } else if (ordenColumna === "valor") {
+                        return ordenAscendente
+                        ? a.valor - b.valor
+                        : b.valor - a.valor
+                    }
+                    return 0
+                })
+                .map((indicador, index) => {
                             const fecha = new Date(indicador.fecha)
                             const fechaFormateada = fecha.toLocaleDateString()
 
